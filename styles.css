@@ -195,3 +195,45 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+/* Styly pro úvodní formulář */
+#setup-zone {
+  width: 100%;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  box-sizing: border-box;
+  color: #1f2937;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
