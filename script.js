@@ -30,7 +30,7 @@ const wheelsConfig = [
 ];
 
 const finalBackground = "url('./images/mapa.jpg')";
-const finalBgType = "no-repeat";
+const finalBgType = "cover";
 
 const funPhrases = [
   "Nezapomeň SPF!",
@@ -191,18 +191,26 @@ function spin() {
   canvas.style.transform = `rotate(${currentRotation}deg)`;
 
   setTimeout(() => {
-    if (arrowPointer) arrowPointer.classList.remove("spinning");
-    const actualDegrees = currentRotation % 360;
-    const adjustedDegrees = (360 - actualDegrees + 270) % 360;
-    const index =
-      Math.floor((adjustedDegrees / 360) * optionsCount) % optionsCount;
-
-    const winner = currentConfig.options[index];
-    selections[currentConfig.label] = winner;
-
-    resultDiv.innerText = `🎉 Vylosováno: ${winner}`;
-    if (nextBtn) nextBtn.hidden = false;
-  }, 4000);
+        if (arrowPointer) arrowPointer.classList.remove("spinning");
+        const actualDegrees = currentRotation % 360;
+        const adjustedDegrees = (360 - actualDegrees + 270) % 360;
+        const index = Math.floor((adjustedDegrees / 360) * optionsCount) % optionsCount;
+        
+        const winner = currentConfig.options[index];
+        selections[currentConfig.label] = winner;
+        
+        resultDiv.innerText = `🎉 Vylosováno: ${winner}`;
+        
+        // 🔥 ÚPRAVA TADY: Pokud je to poslední kolo, změníme text tlačítka
+        if (nextBtn) {
+            if (currentStep === wheelsConfig.length - 1) {
+                nextBtn.innerText = "ZOBRAZIT VÝSLEDKY ➔";
+            } else {
+                nextBtn.innerText = "DALŠÍ LOSOVÁNÍ ➔"; // Vrátíme původní text, pokud by se hra restartovala
+            }
+            nextBtn.hidden = false;
+        }
+    }, 4000);
 }
 
 function handleNext() {
@@ -236,8 +244,9 @@ function showFinalResults() {
 }
 
 function restart() {
-  finalZone.hidden = true;
-  setupZone.hidden = false; // Vrátí nás zpět na formulář pro případnou změnu textů
+    finalZone.hidden = true;
+    setupZone.hidden = false; 
+    if (nextBtn) nextBtn.innerText = "DALŠÍ LOSOVÁNÍ ➔"; // 🔥 Vrátí výchozí text pro novou hru
 }
 
 if (startGameBtn) startGameBtn.addEventListener("click", startGame);
