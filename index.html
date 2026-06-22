@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generátor Náhodné Dovolené 🌍</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <h1 class="main-app-title">PLÁNOVÁNÍ JE NUDALAND!</h1>
+      <div id="progress-indicator">Krok 1 z 4</div>
+      <h2 id="wheel-title">Mácháč čeká!</h2>
+
+      <div id="game-zone">
+        <div class="wheel-wrapper">
+          <div class="arrow" id="wheel-pointer"></div>
+          <canvas id="wheel" width="500" height="500"></canvas>
+        </div>
+        <button id="spin-btn">SPIN THAT SHIT!</button>
+        <div id="result"></div>
+        <button id="next-btn" hidden>DALŠÍ LOSOVÁNÍ ➔</button>
+      </div>
+
+      <div id="final-zone" hidden>
+        <h2>📜 TOP sexy kombinace</h2>
+        <div class="table-wrapper">
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Kategorie</th>
+                <th>Vylosováno</th>
+              </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <button id="restart-btn">Zkusit štěstí znovu 🔄</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
