@@ -7,15 +7,23 @@
         background-attachment: scroll;
     }
 
-    /* Maximálně úsporný kontejner */
-    .app-container {
-        padding: 15px 12px;
-        margin: 5px auto;
-        border-radius: 16px;
-        width: 100%;
-        max-width: 92%;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
+    /* Hlavní bílý poloprůhledný box (karta) */
+.app-container {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 35px 25px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    width: 100%;
+    max-width: 430px; /* Na PC udrží formulář úzký a elegantní */
+    margin: 0 auto;   /* Vycentruje kartu dokonale doprostřed obrazovky */
+    box-sizing: border-box;
+}
 
     /* Zmenšení hlavního nápisu, aby nezabíral dva řádky */
     .main-app-title {
