@@ -9,10 +9,56 @@
   <body>
     <div class="app-container">
       <h1 class="main-app-title">PLÁNOVÁNÍ JE NUDALAND!</h1>
-      <div id="progress-indicator">Krok 1 z 4</div>
-      <h2 id="wheel-title">Mácháč čeká!</h2>
 
-      <div id="game-zone">
+      <div id="setup-zone">
+        <h2 style="font-size: 16px; color: #4b5563; margin-bottom: 20px">
+          Nastav si vlastní možnosti (odděluj čárkou):
+        </h2>
+
+        <div class="input-group">
+          <label>1. Kolo: Destinace</label>
+          <input
+            type="text"
+            id="input-destinace"
+            placeholder="Např.: Itálie 🍕, Island 🌋, Japonsko 🍣"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>2. Kolo: Doprava</label>
+          <input
+            type="text"
+            id="input-doprava"
+            placeholder="Např.: Letadlo ✈️, Vlastní auto 🚗, Vlak 🚂"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>3. Kolo: Ubytování</label>
+          <input
+            type="text"
+            id="input-ubytovani"
+            placeholder="Např.: 5* Hotel 🌟, Stan v lese ⛺, AirBnB 🏢"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>4. Kolo: Aktivita</label>
+          <input
+            type="text"
+            id="input-aktivita"
+            placeholder="Např.: Ležet na pláži 🏖️, Túry po horách 🥾"
+          />
+        </div>
+
+        <button id="start-game-btn" style="background: #4f46e5; color: white">
+          VYTVOŘIT KOLA ŠTĚSTÍ ➔
+        </button>
+      </div>
+
+      <div id="game-zone" hidden>
+        <div id="progress-indicator">Krok 1 z 4</div>
+        <h2 id="wheel-title">Načítám...</h2>
         <div class="wheel-wrapper">
           <div class="arrow" id="wheel-pointer"></div>
           <canvas id="wheel" width="500" height="500"></canvas>
