@@ -2,74 +2,43 @@ const wheelsConfig = [
   {
     title: "Mácháč čeká BABE!",
     label: "Destinace",
-    options: [
-      "Itálie 🍕",
-      "Island 🌋",
-      "Japonsko 🍣",
-      "Španělsko ☀️",
-      "Norsko 🌲",
-      "Mácháč 🏖️",
-    ],
-    background: "url('images/mapa.jpg')",
-    bgType: "cover", // 🔥 První kolo: velká mapa přes celou obrazovku
+    options: [], // Naplní se dynamicky z inputu
+    background: "url('./images/mapa.jpg')",
+    bgType: "cover",
   },
   {
-    title: "Jak se tam dopravím? ✈️",
+    title: "Jak se tam dostaneme? ✈️",
     label: "Doprava",
-    options: [
-      "Letadlo ✈️",
-      "Vlastní auto 🚗",
-      "Vlak 🚂",
-      "Stopem 👍",
-      "Na kole 🚲",
-      "Pěšky 🥾",
-    ],
-    background: "url('images/doprava.jpg')",
-    bgType: "repeat", // 🐾 Ostatní kola: opakující se tapeta
-  },
-  {
-    title: "Kde budu spát? 🏨",
-    label: "Ubytování",
-    options: [
-      "5* Hotel 🌟",
-      "Stan v lese ⛺",
-      "AirBnB byt 🏢",
-      "Couchsurfing 🛋️",
-      "Pod širákem 🌌",
-      "Karavan 🚐",
-    ],
-    background: "url('images/spanek.jpg')",
+    options: [],
+    background: "url('./images/doprava.jpg')",
     bgType: "repeat",
   },
   {
-    title: "Co tam budu dělat? 🎲",
+    title: "Kde budeme spát? 🏨",
+    label: "Ubytování",
+    options: [],
+    background: "url('./images/spanek.jpg')",
+    bgType: "repeat",
+  },
+  {
+    title: "Co tam budeme dělat? 🎲",
     label: "Aktivita",
-    options: [
-      "Ležet na pláži 🏖️",
-      "Túry po horách 🥾",
-      "Gastro zážitky 🍔",
-      "Ztratit se v městě 🏙️",
-      "Chytat bronz ☀️",
-      "Fotit památky 📸",
-    ],
-    background: "url('images/aktivity.jpg')",
+    options: [],
+    background: "url('./images/aktivity.jpg')",
     bgType: "repeat",
   },
 ];
 
-// Závěrečná tabulka (zde si zvol podle sebe buď "repeat" nebo "cover")
-const finalBackground =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3Ccircle cx='0' cy='0' r='10'/%3E%3Ccircle cx='80' cy='0' r='10'/%3E%3Ccircle cx='0' cy='80' r='10'/%3E%3Ccircle cx='80' cy='80' r='10'/%3E%3C/g%3E%3C/svg%3E\"), linear-gradient(135deg, #1e1b4b 0%, #311042 100%)";
+const finalBackground = "url('./images/mapa.jpg')";
 const finalBgType = "repeat";
 
 const funPhrases = [
   "Nezapomeň SPF!",
-  "Doporučuji si vzít bodyspray.",
+  "Doporučuji vzít si bodyspray.",
   "Máš ráda koně?",
   "Radši se před odjezdem vysprchuj.",
   "Nezapomeň se vykadit.",
 ];
-
 const colors = [
   "#f43f5e",
   "#3b82f6",
@@ -92,26 +61,69 @@ const nextBtn = document.getElementById("next-btn");
 const resultDiv = document.getElementById("result");
 const progressIndicator = document.getElementById("progress-indicator");
 const wheelTitle = document.getElementById("wheel-title");
+
+// Nové elementy pro nastavení hry
+const setupZone = document.getElementById("setup-zone");
 const gameZone = document.getElementById("game-zone");
 const finalZone = document.getElementById("final-zone");
+const startGameBtn = document.getElementById("start-game-btn");
 const resultsBody = document.getElementById("results-body");
 const restartBtn = document.getElementById("restart-btn");
 const arrowPointer = document.getElementById("wheel-pointer");
 
+// FUNKCE PRO SPRACOVÁNÍ INPUTŮ A START HRY
+function startGame() {
+  // Vezmeme texty z inputů, rozdělíme čárkou a pročistíme mezery
+  wheelsConfig[0].options = document
+    .getElementById("input-destinace")
+    .value.split(",")
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
+  wheelsConfig[1].options = document
+    .getElementById("input-doprava")
+    .value.split(",")
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
+  wheelsConfig[2].options = document
+    .getElementById("input-ubytovani")
+    .value.split(",")
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
+  wheelsConfig[3].options = document
+    .getElementById("input-aktivita")
+    .value.split(",")
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
+
+  // Kontrola, aby žádné kolo nezůstalo prázdné
+  for (let config of wheelsConfig) {
+    if (config.options.length === 0) {
+      alert(`Nezadal jsi žádné možnosti pro sekci: ${config.label}!`);
+      return;
+    }
+  }
+
+  // Schováme nastavení, ukážeme hru
+  setupZone.hidden = true;
+  gameZone.hidden = false;
+
+  // Načteme první kolo
+  currentStep = 0;
+  selections = {};
+  loadWheel(currentStep);
+}
+
 function loadWheel(step) {
   const config = wheelsConfig[step];
-
-  // Nastavení obrázku
   document.body.style.backgroundImage = config.background;
 
-  // 🔥 CHYTRÉ PŘEPÍNÁNÍ PODLE BG-TYPE
   if (config.bgType === "cover") {
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
   } else {
     document.body.style.backgroundRepeat = "repeat";
-    document.body.style.backgroundSize = "300px"; // Velikost pro opakující se vzory
+    document.body.style.backgroundSize = "300px";
     document.body.style.backgroundPosition = "top left";
   }
 
@@ -125,7 +137,6 @@ function loadWheel(step) {
   canvas.style.transition = "none";
   currentRotation = 0;
   canvas.style.transform = "rotate(0deg)";
-
   canvas.offsetHeight;
   canvas.style.transition = "transform 4s cubic-bezier(0.15, 0.85, 0.1, 1)";
 
@@ -142,7 +153,6 @@ function drawWheel(config) {
 
   config.options.forEach((option, i) => {
     const angle = i * arc;
-
     ctx.beginPath();
     ctx.fillStyle = colors[i % colors.length];
     ctx.moveTo(center, center);
@@ -152,29 +162,28 @@ function drawWheel(config) {
 
     ctx.save();
     ctx.fillStyle = "white";
-    ctx.font = "bold 18px 'Segoe UI', sans-serif";
+    // Dynamické zmenšení písma, pokud je možností hodně
+    const fontSize = config.options.length > 8 ? "13px" : "17px";
+    ctx.font = `bold ${fontSize} 'Segoe UI', sans-serif`;
     ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
     ctx.shadowBlur = 4;
     ctx.textAlign = "right";
     ctx.translate(center, center);
     ctx.rotate(angle + arc / 2);
-    ctx.fillText(option, radius - 30, 6);
+    ctx.fillText(option, radius - 25, 6);
     ctx.restore();
   });
 }
 
 function spin() {
   if (spinBtn) spinBtn.disabled = true;
-
   const randomPhrase =
     funPhrases[Math.floor(Math.random() * funPhrases.length)];
   resultDiv.innerText = randomPhrase;
-
   if (arrowPointer) arrowPointer.classList.add("spinning");
 
   const currentConfig = wheelsConfig[currentStep];
   const optionsCount = currentConfig.options.length;
-
   const extraDegrees = Math.floor(Math.random() * 360);
   const finalRotation = 1800 + extraDegrees;
 
@@ -183,7 +192,6 @@ function spin() {
 
   setTimeout(() => {
     if (arrowPointer) arrowPointer.classList.remove("spinning");
-
     const actualDegrees = currentRotation % 360;
     const adjustedDegrees = (360 - actualDegrees + 270) % 360;
     const index =
@@ -207,22 +215,16 @@ function handleNext() {
 }
 
 function showFinalResults() {
-  if (gameZone) gameZone.hidden = true;
-  if (progressIndicator) progressIndicator.hidden = true;
-  if (wheelTitle) wheelTitle.hidden = true;
-  if (finalZone) finalZone.hidden = false;
-
+  gameZone.hidden = true;
+  finalZone.hidden = false;
   document.body.style.backgroundImage = finalBackground;
 
-  // Nastavení typu pro finální scénu
   if (finalBgType === "cover") {
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
   } else {
     document.body.style.backgroundRepeat = "repeat";
     document.body.style.backgroundSize = "300px";
-    document.body.style.backgroundPosition = "top left";
   }
 
   resultsBody.innerHTML = "";
@@ -234,17 +236,11 @@ function showFinalResults() {
 }
 
 function restart() {
-  currentStep = 0;
-  selections = {};
-  if (finalZone) finalZone.hidden = true;
-  if (gameZone) gameZone.hidden = false;
-  if (progressIndicator) progressIndicator.hidden = false;
-  if (wheelTitle) wheelTitle.hidden = false;
-  loadWheel(currentStep);
+  finalZone.hidden = true;
+  setupZone.hidden = false; // Vrátí nás zpět na formulář pro případnou změnu textů
 }
 
+if (startGameBtn) startGameBtn.addEventListener("click", startGame);
 if (spinBtn) spinBtn.addEventListener("click", spin);
 if (nextBtn) nextBtn.addEventListener("click", handleNext);
 if (restartBtn) restartBtn.addEventListener("click", restart);
-
-loadWheel(currentStep);
