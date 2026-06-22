@@ -30,7 +30,7 @@ const wheelsConfig = [
 ];
 
 const finalBackground = "url('./images/mapa.jpg')";
-const finalBgType = "repeat";
+const finalBgType = "no-repeat";
 
 const funPhrases = [
   "Nezapomeň SPF!",
