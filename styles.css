@@ -1,60 +1,94 @@
-/* --- MOBILNÍ RESPONZIVITA (pro displeje užší než 600px) --- */
+/* ==========================================================================
+   RESPONZIVITA PRO MOBILNÍ TELEFONY (Kompaktní verze na jednu obrazovku)
+   ========================================================================== */
 @media (max-width: 600px) {
     body {
-        padding: 10px;
-        align-items: flex-start; /* Na mobilech začínáme odshora, kdyby byl delší obsah */
+        padding: 8px;
+        background-attachment: scroll;
     }
 
+    /* Maximálně úsporný kontejner */
     .app-container {
-        padding: 15px;
+        padding: 15px 12px;
         margin: 5px auto;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        border-radius: 16px;
+        width: 100%;
+        max-width: 92%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
+    /* Zmenšení hlavního nápisu, aby nezabíral dva řádky */
     .main-app-title {
-        font-size: 20px; /* Menší nadpis */
-        margin-bottom: 15px;
+        font-size: 20px;
+        margin-bottom: 8px;
     }
 
-    /* Zmenšení obalové zóny kola štěstí */
+    #progress-indicator {
+        margin-bottom: 4px;
+        font-size: 10px;
+    }
+
+    #wheel-title {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    /* 🔥 ULTRA KOMPAKTNÍ KOLO ŠTĚSTÍ */
     .wheel-wrapper {
-        width: 290px;
-        height: 290px;
-        margin: 15px auto;
+        width: 250px;  /* Zmenšeno z 290px na 250px */
+        height: 250px;
+        margin: 5px auto 12px auto;
     }
 
-    /* Zmenšení samotného kreslícího plátna kola */
     #wheel {
         width: 100% !important;
         height: 100% !important;
     }
 
-    /* Úprava šipky pro menší kolo */
+    /* Úprava šipky pro menší rozměr kola */
     .arrow {
         top: -10px;
-        border-width: 0 15px 25px 15px;
+        border-width: 12px 8px 0 8px;
     }
 
-    /* Úprava tlačítek, aby se na ně dobře klikalo prstem */
-    button {
-        padding: 14px 20px;
+    /* Výsledek hned pod kolem */
+    #result {
+        margin-top: 8px;
+        font-size: 16px;
+        min-height: 24px;
+        line-height: 24px;
+    }
+
+    /* Kompaktnější tlačítka */
+    button, #start-game-btn, #spin-btn, #next-btn, #restart-btn {
+        width: 100%;
+        padding: 12px;
         font-size: 15px;
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
-    /* Formulář na začátku - políčka pod sebou a plná šířka */
+    /* Menší mezery ve formuláři na začátku */
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    .input-group label {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+
     .input-group input {
-        padding: 10px;
+        padding: 8px 10px;
         font-size: 14px;
     }
 
-    /* Tabulka s výsledky na konci, aby netrčela z mobilu */
+    /* Úsporná výsledková tabulka */
     table {
-        font-size: 14px;
+        margin: 10px 0;
+        font-size: 13px;
     }
     
     th, td {
-        padding: 8px 10px;
+        padding: 6px;
     }
 }
