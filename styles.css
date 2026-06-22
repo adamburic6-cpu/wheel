@@ -1,71 +1,60 @@
-/* ==========================================================================
-   RESPONZIVITA PRO MOBILNÍ TELEFONY (Displeje menší než 600px)
-   ========================================================================== */
+/* --- MOBILNÍ RESPONZIVITA (pro displeje užší než 600px) --- */
 @media (max-width: 600px) {
-    /* 1. Aby se pozadí na výšku telefonu nedeformovalo */
     body {
         padding: 10px;
-        background-attachment: scroll; /* Na telefonech funguje lépe než fixed */
+        align-items: flex-start; /* Na mobilech začínáme odshora, kdyby byl delší obsah */
     }
 
-    /* 2. Hlavní kontejner zúžíme a zmenšíme mu vnitřní okraje */
     .app-container {
         padding: 15px;
-        margin: 10px auto;
-        border-radius: 16px;
-        width: 100%;
-        max-width: 95%;
+        margin: 5px auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
-    /* 3. Zmenšíme nadpisy, aby nezabíraly půlku obrazovky */
     .main-app-title {
-        font-size: 24px;
+        font-size: 20px; /* Menší nadpis */
         margin-bottom: 15px;
     }
 
-    #wheel-title, #final-zone h2 {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-
-    /* 4. KLÍČOVÉ: Dynamické zmenšení kola štěstí na mobilu */
+    /* Zmenšení obalové zóny kola štěstí */
     .wheel-wrapper {
-        width: 290px;  /* Zmenšení obalu kola */
+        width: 290px;
         height: 290px;
-        margin: 15px auto 25px auto;
+        margin: 15px auto;
     }
 
+    /* Zmenšení samotného kreslícího plátna kola */
     #wheel {
-        width: 100% !important;  /* Kolo se smrští podle wrapperu */
+        width: 100% !important;
         height: 100% !important;
     }
 
-    /* 5. Posunutí šipky (pointeru), aby na menším kole seděla přesně */
+    /* Úprava šipky pro menší kolo */
     .arrow {
-        top: -12px;
-        border-width: 15px 10px 0 10px; /* O něco menší šipka */
+        top: -10px;
+        border-width: 0 15px 25px 15px;
     }
 
-    /* 6. Tlačítka uděláme větší, aby se na ně na mobilu dobře klikalo palcem */
-    button, #start-game-btn, #spin-btn, #next-btn, #restart-btn {
-        width: 100%; /* Roztáhnou se na celou šířku */
-        padding: 14px;
-        font-size: 16px;
+    /* Úprava tlačítek, aby se na ně dobře klikalo prstem */
+    button {
+        padding: 14px 20px;
+        font-size: 15px;
         margin-top: 10px;
     }
 
-    /* 7. Lepší zobrazení formuláře na začátku */
+    /* Formulář na začátku - políčka pod sebou a plná šířka */
     .input-group input {
         padding: 10px;
-        font-size: 15px; /* Větší písmo v inputu zabrání iOS v automatickém přibližování */
+        font-size: 14px;
     }
 
-    /* 8. Responzivní výsledková tabulka na konci */
+    /* Tabulka s výsledky na konci, aby netrčela z mobilu */
     table {
         font-size: 14px;
     }
     
     th, td {
-        padding: 8px;
+        padding: 8px 10px;
     }
 }
